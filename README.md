@@ -4,6 +4,11 @@ Initializes a Vagrant box provisioned for development on Shotcaller
 
 # Prerequisites
 
+* Chocolatey (Run from elevated Powershell)  
+```
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
 * Vagrant
 * ChefDK
 * VirtualBox Guest Additions plugin
