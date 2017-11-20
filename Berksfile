@@ -8,3 +8,6 @@ cookbook 'ruby_build'
 cookbook 'ruby_rbenv', '~> 1.1.0'
 cookbook 'postgresql', git: 'https://github.com/ChowOps/chef-postgresql'
 cookbook 'vim'
+cookbook 'heroku', '~> 0.1.0'
+
+

@@ -3,8 +3,13 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+#Replace this with the path to your shotcaller git directory
+SHOTCALLER_SRC_PATH="C:\\Users\\Raz\\dev\\shotcaller"
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.omnibus.chef_version = "12.21.26"
+
+	config.vm.synced_folder SHOTCALLER_SRC_PATH, "/home/ubuntu/shotcaller"
 
 	config.vm.box = "ubuntu/xenial64"
 
@@ -29,6 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		chef.add_recipe "vim"
 		chef.add_recipe "postgresql::server"
 		chef.add_recipe "postgresql::client"
+    chef.add_recipe "heroku"
 
 		chef.json = {
 			rbenv: {
@@ -44,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 			system: {
 				packages: {
-					install: ["redis-server", "nodejs", "libpq-dev"]
+					install: ["redis-server", "nodejs", "libpq-dev", "tree"]
 				}
 			},
 
@@ -64,6 +70,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 					"login": true
 				}]
 			}
-		}
+    }
 		end
 end
