@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# Configure the virtual machine to use 1.5GB of RAM
 	config.vm.provider :virtualbox do |vb|
-	vb.customize ["modifyvm", :id, "--memory", "4096"]
+		vb.customize ["modifyvm", :id, "--memory", "4096"]
 	end
 
 	# Forward the Rails server default port to the host
@@ -31,37 +31,39 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		chef.add_recipe "postgresql::client"
 
 		chef.json = {
-		rbenv: {
-		user_installs: [{
-		user: 'ubuntu',
-		      rubies: ["2.2.4"],
-		      global: "2.2.4",
-		      gems: {
-			      "2.2.4" => [{ name: "bundler" }]
-		      }
-			       }]
-		       },
-		system: {
-		packages: {
-		install: ["redis-server", "nodejs", "libpq-dev"]
-			  }
+			rbenv: {
+				user_installs: [{
+					user: 'ubuntu',
+					rubies: ["2.2.4"],
+					global: "2.2.4",
+					gems: {
+						"2.2.4" => [{ name: "bundler" }]
+					}
+				}]
+		  },
+
+			system: {
+				packages: {
+					install: ["redis-server", "nodejs", "libpq-dev"]
+				}
 			},
-		postgresql: {
-				    :pg_hba => [{
-					    :comment => "# Add vagrant role",
-					    :type => 'local', :db => 'all', :user => 'ubuntu', :addr => nil, :method => 'trust'
-				    }],
-				    :users => [{
-					    "username": "ubuntu",
-					    "password": "",
-					    "superuser": true,
-					    "replication": false,
-					    "createdb": true,
-					    "createrole": false,
-					    "inherit": false,
-					    "login": true
-				    }]
-			    }
+
+			postgresql: {
+				:pg_hba => [{
+					:comment => "# Add vagrant role",
+					:type => 'local', :db => 'all', :user => 'ubuntu', :addr => nil, :method => 'trust'
+				}],
+				:users => [{
+					"username": "ubuntu",
+					"password": "",
+					"superuser": true,
+					"replication": false,
+					"createdb": true,
+					"createrole": false,
+					"inherit": false,
+					"login": true
+				}]
+			}
 		}
-	end
+		end
 end
